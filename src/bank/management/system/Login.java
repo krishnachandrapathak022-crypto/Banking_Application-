@@ -4,7 +4,6 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import java.sql.*;
-import com.toedter.calendar.JDateChooser;
 
 public class Login extends JFrame implements ActionListener{
     JLabel l1,l2,l3;
@@ -88,17 +87,17 @@ public class Login extends JFrame implements ActionListener{
         try{        
             if(ae.getSource()==b1){
                 Conn c1 = new Conn();
-                String cardnumber = tf1.getText();
-                String pin = pf2.getText();
-
-            String q = "SELECT * FROM login WHERE cardnumber = '"+cardnumber+"' AND pin = '"+pin+"'";
-       ResultSet rs = c1.s.executeQuery(q);
-                if(rs.next()){
-                    setVisible(false);
-                    new Transaction(pin).setVisible(true);
-                }else{
-                    JOptionPane.showMessageDialog(null, "Incorrect Card Number or PIN");
-                }
+                String cardno  = tf1.getText();
+                String pin  = pf2.getText();
+                String q = "select * from login where cardnumber = '" + cardno + "' and pin = '" + pin + "'";
+                ResultSet rs = c1.s.executeQuery(q);
+               
+               if (rs.next()) {
+                             setVisible(false);
+                             new Transaction(pin).setVisible(true);
+                } else {
+                         JOptionPane.showMessageDialog(null, "Incorrect Card Number or PIN");
+               }
             }else if(ae.getSource()==b2){
                 tf1.setText("");
                 pf2.setText("");
@@ -112,9 +111,7 @@ public class Login extends JFrame implements ActionListener{
     }
     public static void main(String[] args){
         new Login().setVisible(true);
-    }   
+    }
+
+    
 }
-
-
-
-
